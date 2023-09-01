@@ -16,9 +16,9 @@ export default function App() {
 
     function Ask() {
         if (gender !== "" && age !== "" && personality !== "" && expense !== "") {
-            console.log("Submited");
+            const question = `Which gift should I give to my friend is ${gender}, ${age} years old, with the price is ${expense}, my friend personality is ${personality}. Please response by list.`;
+            console.log(question);
 
-            const question = `which gift should I give to my friend is ${gender} in the age of ${age}, with the price is ${expense}, my friend personality is ${personality}.`;
             askGPT3(question)
                 .then((answer) => {
                     if (answer) {
@@ -41,7 +41,7 @@ export default function App() {
             <KeyboardAwareScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
-                keyboardShouldPersistTaps="handled" // Prevents dismissing keyboard on tap
+                keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.bodyContainer}>
