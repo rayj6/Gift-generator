@@ -1,31 +1,64 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions } from "react-native";
 import GetGender from "./components/GetGender";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
 
 export default function App() {
+    const [gender, setGender] = useState("");
+    const [age, setAge] = useState("");
+    const [personality, setPersonality] = useState("");
+    const [expense, setExpense] = useState("");
+
     return (
         <View style={styles.container}>
             <StatusBar style="dark" />
+            <KeyboardAwareScrollView
+                style={{ flex: 1 }}
+                contentContainerStyle={{ flexGrow: 1, justifyContent: "center", alignItems: "center" }}
+                keyboardShouldPersistTaps="handled" // Prevents dismissing keyboard on tap
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.bodyContainer}>
+                    <Text style={styles.title}>PLEASE PROVIDE</Text>
+                    <Text style={styles.title}>RECIPENT INFORMATION</Text>
 
-            <View style={styles.bodyContainer}>
-                <Text style={styles.title}>PLEASE PROVIDE</Text>
-                <Text style={styles.title}>RECIPENT INFORMATION</Text>
+                    <View style={{ marginTop: WIDTH / 8, alignItems: "center" }}>
+                        <GetGender Status={gender} setStatus={setGender} />
 
-                <View style={{ marginTop: WIDTH / 8, alignItems: "center" }}>
-                    <GetGender />
-                    <View style={{ marginTop: WIDTH / 10 }} />
-                    <TextInput style={styles.textInput} placeholderTextColor={"#525252"} placeholder="Enter age" />
-                    <TextInput style={styles.textInput} placeholderTextColor={"#525252"} placeholder="Enter personality" />
-                    <TextInput style={styles.textInput} placeholderTextColor={"#525252"} placeholder="Enter number you would spend" />
+                        <View style={{ marginTop: WIDTH / 10 }} />
+
+                        <TextInput
+                            style={styles.textInput}
+                            value={age}
+                            onChangeText={(text) => setAge(text)}
+                            placeholderTextColor={"#525252"}
+                            placeholder="Enter age"
+                        />
+                        <TextInput
+                            style={styles.textInput}
+                            value={personality}
+                            onChangeText={(text) => setPersonality(text)}
+                            placeholderTextColor={"#525252"}
+                            placeholder="Enter personality"
+                        />
+                        <TextInput
+                            style={styles.textInput}
+                            value={expense}
+                            onChangeText={(text) => setExpense(text)}
+                            placeholderTextColor={"#525252"}
+                            placeholder="Enter number you would spend"
+                        />
+                    </View>
+
+                    <TouchableOpacity style={styles.submit}>
+                        <Text style={{ fontSize: WIDTH / 20, fontWeight: "800", color: "white" }}>Submit</Text>
+                    </TouchableOpacity>
                 </View>
-
-                <TouchableOpacity style={styles.submit}>
-                    <Text style={{ fontSize: WIDTH / 20, fontWeight: "800", color: "white" }}>Submit</Text>
-                </TouchableOpacity>
-            </View>
+            </KeyboardAwareScrollView>
         </View>
     );
 }

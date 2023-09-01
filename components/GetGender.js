@@ -4,8 +4,7 @@ import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-nati
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
 
-export default function App() {
-    const [Status, setStatus] = useState("");
+export default function GetGender({ Status, setStatus }) {
     const [Male, setMale] = useState("#FFFFFF");
     const [MaleText, setMaleText] = useState("#000000");
     const [Female, setFemale] = useState("#FFFFFF");
@@ -34,6 +33,7 @@ export default function App() {
             setEither("#4BAE4F");
             setEitherText("#FFFFFF");
             setStatus("Either");
+            ``;
             setFemale("#FFFFFF");
             setFemaleText("#000000");
             setMale("#FFFFFF");
