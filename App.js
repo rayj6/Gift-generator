@@ -1,8 +1,9 @@
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, TextInput, Dimensions } from "react-native";
-import GetGender from "./components/GetGender";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import GetGender from "./components/GetGender";
+import { askGPT3 } from "./components/AskAndAnswer";
 
 const WIDTH = Dimensions.get("screen").width;
 const HEIGHT = Dimensions.get("screen").height;
@@ -12,6 +13,27 @@ export default function App() {
     const [age, setAge] = useState("");
     const [personality, setPersonality] = useState("");
     const [expense, setExpense] = useState("");
+
+    function Ask() {
+        if (gender !== "" && age !== "" && personality !== "" && expense !== "") {
+            console.log("Submited");
+
+            const question = `which gift should I give to my friend is ${gender} in the age of ${age}, with the price is ${expense}, my friend personality is ${personality}.`;
+            askGPT3(question)
+                .then((answer) => {
+                    if (answer) {
+                        console.log("Answer:", answer);
+                    } else {
+                        console.log("Unable to get an answer.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        } else {
+            alert("Please check your information!");
+        }
+    }
 
     return (
         <View style={styles.container}>
@@ -54,7 +76,7 @@ export default function App() {
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.submit}>
+                    <TouchableOpacity style={styles.submit} onPress={() => Ask()}>
                         <Text style={{ fontSize: WIDTH / 20, fontWeight: "800", color: "white" }}>Submit</Text>
                     </TouchableOpacity>
                 </View>
